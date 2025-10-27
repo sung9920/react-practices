@@ -1,7 +1,7 @@
 import React from 'react';
-import {Header} from './assets/css/Banner01.css';
+import {Header} from './assets/css/Banner02.css';
 
-function Banner01(props) {
+function Banner02(props) {
     return (
         <div>
             <h1 className={Header}>Hello React</h1>
@@ -9,4 +9,4 @@ function Banner01(props) {
     );
 }
 
-export default Banner01;<h1>Hello React</h1>
+export default Banner02;

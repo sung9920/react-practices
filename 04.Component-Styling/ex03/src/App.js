@@ -1,11 +1,12 @@
 import React from 'react';
-import './assets/css/App.css';
+import {Header} from './assets/css/App.css';
 
 function App () {
+    // console.log('변수 Header:' + Header);
 
     return (
-        <div>
-          <h1>{'CSS Module II'}</h1>
+        <div id={'App'}>
+            <h1 className={Header}>{'CSS Module I'}</h1>
         </div>
     );
 }

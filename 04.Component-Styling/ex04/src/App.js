@@ -1,14 +1,14 @@
 import React from 'react';
-import {Header} from './assets/css/App.css';
+import './assets/css/App.css';
 import Banner01 from './Banner01';
+import Banner02 from './Banner02';
 
 function App () {
-    // console.log('변수 Header:' + Header);
-
     return (
         <div id={'App'}>
-            <h1 className={Header}>{'CSS Module I'}</h1>
-            <Banner01/>
+            <h1>{'CSS Module II'}</h1>
+            <Banner01 />
+            <Banner02 />
         </div>
     );
 }

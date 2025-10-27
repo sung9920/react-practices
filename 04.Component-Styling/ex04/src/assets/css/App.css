@@ -1,6 +1,6 @@
 @import 'Common.css';
 
-.Header {
+:global(#App) > h1 {
     font-size: 14px;
     width: 420px;
     text-align: center;
