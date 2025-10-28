@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+body {
+  :global(#root) {
+    :global(#App) {
+      ul {
+        height: 24px;
+      }
+    }
+  }
+}
