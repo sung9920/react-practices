@@ -1,5 +1,5 @@
 {
-  "name": "ex03",
+  "name": "ex05",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -26,7 +26,6 @@
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "styled-components": "^6.1.19",
-    "tailwindcss": "^4.1.16"
+    "styled-components": "^6.1.19"
   }
 }

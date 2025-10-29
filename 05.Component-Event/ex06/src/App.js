@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
+import "./assets/scss/App.scss";
 
-function App() {
+export default function App() {
+  const outterRef = useRef(null);
+  const innerRef = useRef(null);
+
   return (
-    <div id={"App"}>
-      <h1 onClick={(e) => {
-          console.log("clicked!");
-        }}>
-        {"Inline Handler (click here!)"}
-      </h1>
+    <div className={"App"}>
+      <div ref={innerRef}>
+        <ul>
+          {Array.from({ length: 100 }, (_, i) => i + 1).map((i) => (
+            <li key={i}>{`아이템 ${i} 입니다.`}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
-
-export default App;
