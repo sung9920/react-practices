@@ -3,7 +3,6 @@ import {_Card, Card_Title, Card_Title_Open} from "./assets/scss/Card.scss";
 import TaskList from "./TaskList";
 
 function Card({title, description, tasks}) {
-    console.log(tasks);
   return (
     <div className={_Card}>
       <div className={Card_Title + ' ' + Card_Title_Open}>{title}</div>
