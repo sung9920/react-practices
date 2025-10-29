@@ -1,14 +1,20 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import logo from './assets/images/react-logo.png';
 
 export default function App() {
-
+    const imgRef = useRef(null);
+   
     const onMouseOver = (e) => {
         console.log('mouseover', `x=${e.clientX}, y=${e.clientY}`);
     }
 
     const onMouseMove = (e) => {
-        console.log('mousemove', `x=${e.clientX}, y=${e.clientY}`);
+        // console.log('mousemove', `x=${e.clientX}, y=${e.clientY}`);
+        // console.log(`x=${e.nativeEvent.offsetX}, y=${e.nativeEvent.offsetY}`);
+        const offsetTop = imgRef.current.offsetTop;
+        const offsetLeft = imgRef.current.offsetLeft;
+
+        console.log('mousemove', `x=${e.clientX - offsetLeft}, y=${e.clientY - offsetTop}`);
     }
 
     const onMouseOut = (e) => {
@@ -64,7 +70,7 @@ export default function App() {
                 <br/>
                 <br/>
             <img
-                id={'my-image'}
+                ref = {imgRef}                
                 style={{
                     cursor: 'pointer',
                     width: 190,
