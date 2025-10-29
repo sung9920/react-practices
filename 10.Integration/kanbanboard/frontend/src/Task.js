@@ -1,13 +1,21 @@
 import React from "react";
 import { _Task, Task_Remove } from "./assets/scss/Task.scss";
 
-function Task({name, done}) {
+function Task({ name, done }) {
+  const [isDone, setIsDone] = React.useState(done);
+
   return (
-      <li className={_Task}>
-        <input type="checkbox" defaultChecked={done} />
-        {' '  + name + ' '}
-        <a href="#" className={Task_Remove}></a>
-      </li>
+    <li className={_Task}>
+      <input
+        type="checkbox"
+        defaultChecked={isDone}
+        onChange={(e) => {
+          setIsDone(e.target.checked);
+        }}
+      />
+      {" " + name + " "}
+      <a href="#" className={Task_Remove}></a>
+    </li>
   );
 }
 
