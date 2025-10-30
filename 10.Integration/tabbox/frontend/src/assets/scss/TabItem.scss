@@ -4,7 +4,7 @@ body {
   :global(#root) {
     :global(#App) {
       .Tab_Item {
-        float: left;
+        float: right;
         width: 100px;
         border: 1px solid #999;
         border-radius: 10px 10px 0 0;
@@ -18,7 +18,7 @@ body {
         &:nth-child(1) {
           margin-right: 0;
         }
-        &.active {
+        &:global(.active) {
           background-color: #fc6;
         }
       }

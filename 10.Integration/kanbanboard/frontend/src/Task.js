@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { _Task, Task_Remove } from "./assets/scss/Task.scss";
 
 function Task({ name, done }) {
-  const [isDone, setIsDone] = React.useState(done);
+  const [isDone, setIsDone] = useState(done);
 
   return (
     <li className={_Task}>

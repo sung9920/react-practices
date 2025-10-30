@@ -8,8 +8,7 @@ function Card({ title, description, tasks }) {
     <div className={_Card}>
       <div
         className={[Card_Title, isShowDetails && Card_Title_Open].join(" ")}
-        onClick={() => setIsShowDetails(!isShowDetails)}
-      >
+        onClick={() => setIsShowDetails(!isShowDetails)}>
         {title}
       </div>
       <p>{description}</p>

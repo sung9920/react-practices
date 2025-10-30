@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Tab_Item } from "./assets/scss/TabItem.scss";
 
-function TabItem({name}) {
-  return <li className={Tab_Item + ' ' + 'active'}>{name}</li>;
+function TabItem({ no, name, selectTab }) {
+
+  return <li className={Tab_Item}>{name}</li>;
 }
 
 export default TabItem;
