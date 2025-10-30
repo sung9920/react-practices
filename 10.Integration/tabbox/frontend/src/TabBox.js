@@ -5,10 +5,10 @@ import TabView from "./TabView.js";
 import Tabs from "./Tabs.js";
 
 function TabBox() {
-  const [active, setActive] = useState(true);
+  const [active, setActive] = useState(0);
 
   const selectTab = (no) => {
-    console.log(no);
+    setActive(data.findIndex(e=>e.no === no))
   };
 
   return (
