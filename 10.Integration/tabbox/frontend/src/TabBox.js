@@ -10,7 +10,7 @@ function TabBox() {
   const selectTab = (no) => {
     setActive(data.findIndex(e=>e.no === no))
   };
-
+ 
   return (
     <div className={Tab_Box}>
       <Tabs selectTab={selectTab} data={data.map((item, index) => ({
@@ -18,7 +18,7 @@ function TabBox() {
         name: item.name,
         active: index === active
       }))} />
-      <TabView />
+      <TabView contents={data[active].contents}/>
     </div> 
   );
 }
