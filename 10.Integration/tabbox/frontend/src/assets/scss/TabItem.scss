@@ -4,7 +4,7 @@ body {
   :global(#root) {
     :global(#App) {
       .Tab_Item {
-        float: right;
+        float: left;
         width: 100px;
         border: 1px solid #999;
         border-radius: 10px 10px 0 0;
@@ -15,7 +15,7 @@ body {
         line-height: 22px;
         cursor: pointer;
 
-        &:nth-child(1) {
+        &:last-child {
           margin-right: 0;
         }
         &:global(.active) {
