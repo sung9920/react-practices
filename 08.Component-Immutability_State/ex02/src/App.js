@@ -15,9 +15,9 @@ export default function App() {
     console.log("Payment Updated", payment);
   }, [payment]);
 
-  useEffect(() => {
-    console.log("Goods Updated", goods);
-  }, [goods]);
+//   useEffect(() => {
+//     console.log("Goods Updated", goods);
+//   }, [goods]);
 
   return (
     <div id={"App"}>
