@@ -1,18 +1,13 @@
-import React, { Fragment } from "react";
-import Header from "../layout/Header";
-import Navigation from "../layout/Navigation";
-import Footer from "../layout/Footer";
-import styles from "../assets/scss/component/Gallery.scss";
+import React from 'react';
+import SiteLayout from '../layout/SiteLayout';
+import * as styles from '../assets/scss/component/Gallery.scss';
 
 export default function Gallery() {
-  return (
-    <>
-      <Header />
-      <div className={styles.Gallery}>
-        <h2>Gallery</h2>
-      </div>
-      <Navigation />
-      <Footer />
-    </>
-  );
+    return (
+        <SiteLayout>
+            <div className={styles.Gallery}>
+                <h2>Gallery</h2>
+            </div>
+        </SiteLayout>
+    );
 }

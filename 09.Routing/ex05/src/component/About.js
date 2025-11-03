@@ -1,8 +1,8 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import Header from "../layout/Header";
 import Navigation from "../layout/Navigation";
 import Footer from "../layout/Footer";
-import styles from '../assets/scss/component/About.scss';
+import * as styles from '../assets/scss/component/About.scss';
 
 export default function About() {
     return (

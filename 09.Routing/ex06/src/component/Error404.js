@@ -1,20 +1,15 @@
-import React from "react";
-import Header from "../layout/Header";
-import Navigation from "../layout/Navigation";
-import Footer from "../layout/Footer";
-import * as  styles  from '../assets/scss/component/Error404.scss';
+import React from 'react';
+import SiteLayout from '../layout/SiteLayout';
+import * as styles from '../assets/scss/component/Error404.scss'
 
 function Error404(props) {
-  return (
-    <>
-      <Header />
-      <div className={styles.Error404}>
-        <h2>Error 404</h2>
-      </div>
-      <Navigation />
-      <Footer />
-    </>
-  );
+    return (
+        <SiteLayout>
+            <div className={styles.Error404}>
+                <h2>Error 404</h2>
+            </div>
+        </SiteLayout>
+    );
 }
 
 export default Error404;

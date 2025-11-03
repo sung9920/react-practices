@@ -4,11 +4,11 @@ import {Link, NavLink} from 'react-router-dom';
 export default function Main() {
     return (
         <div>
-            <h1>Main</h1>   
+            <h1>Main</h1>
             <ul>
-                <li><Link to={"/"}>[Main]</Link></li>
-                <li><NavLink to={"/guestbook"}>[Guestbook]</NavLink></li>
-                <li><Link to={"/gallery"}>[Gallery]</Link></li>
+                <li><Link className={'menu'} to={'/'}>[Main]</Link></li>
+                <li><NavLink className={'menu'} to={'/guestbook'}>[Guestbook]</NavLink></li>
+                <li><NavLink to={'/gallery'}>[Gallery]</NavLink></li>
             </ul>
         </div>
     );

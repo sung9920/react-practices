@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Error401(props) {
+function Error404(props) {
     return (
         <div>
             <h1>401 Access Denied</h1>
@@ -8,4 +8,4 @@ function Error401(props) {
     );
 }
 
-export default Error401;
+export default Error404;
