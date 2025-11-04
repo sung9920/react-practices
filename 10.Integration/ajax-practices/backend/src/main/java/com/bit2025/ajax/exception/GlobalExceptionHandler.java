@@ -15,28 +15,28 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-	
-	@ExceptionHandler(NoHandlerFoundException.class)
-	public String handlerNoHandlerFoundException() {
-		return "forward:/error/404";
-	}
-	
-	@ExceptionHandler(NoResourceFoundException.class)
-	public void handlerNoResourceFoundException(HttpServletResponse response) throws Exception {
-		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		response.setContentType("text/pain");
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().print("No Resource Found");
-	}
-	
-	@ExceptionHandler(Exception.class)
-	public String handler(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {
-		// logging
-		StringWriter errors = new StringWriter();
-		e.printStackTrace(new PrintWriter(errors));
-		log.error(errors.toString());
 
-		request.setAttribute("errors", errors);
-		return "forward:/error/500";
-	}
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public String handlerNoHandlerFoundException() {
+        return "forward:/error/404";
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public void handlerNoResourceFoundException(HttpServletResponse response) throws Exception {
+        response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        response.setContentType("text/pain");
+        response.setCharacterEncoding("utf-8");
+        response.getWriter().print("No Resource Found");
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handler(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {
+        // logging
+        StringWriter errors = new StringWriter();
+        e.printStackTrace(new PrintWriter(errors));
+        log.error(errors.toString());
+
+        request.setAttribute("errors", errors);
+        return "forward:/error/500";
+    }
 }

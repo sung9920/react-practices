@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import ReactModal from "react-modal";
 import styled from "styled-components";
+import axios from "axios";
 
 import noImage from "./assets/images/no-image.png";
 import "./assets/scss/App.scss";
@@ -15,14 +16,30 @@ ReactModal.setAppElement("body");
 export default function App() {
   const [items, setItems] = useState(null);
 
+  useEffect(() => {
+    fetchItems();
+  }, []);
+
+  const fetchItems = async () => {
+    try {
+      const res = await axios.get("/item");
+      if (res.data.result === "fail") {
+        throw new Error(res.data.message);
+      }
+      setItems(res.data.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div id={"App"}>
       <h1>AJAX: Restful API</h1>
-      <h2 onClick={() => {
-        console.log("click")
-      }}>Items</h2>
+
+      <h2>Items</h2>
+
       <ItemList>
-        {items.map((item, index) => (
+        {items?.map((item, index) => (
           <Item key={item.id}>
             <h4>
               <b>{item.name}</b>
@@ -32,15 +49,12 @@ export default function App() {
               <span>{index + 1}</span>
               <i>{item.type}</i>
               <ins
-                style={{
-                  backgroundImage: `url(${item.image || noImage})`,
-                }}
-              ></ins>
+                style={{ backgroundImage: `url(${item.image || noImage})` }}
+              />
             </div>
           </Item>
         ))}
       </ItemList>
     </div>
   );
-  bb;
 }

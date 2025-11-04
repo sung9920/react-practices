@@ -17,30 +17,30 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/error")
 public class WhitelabelErrorController implements ErrorController {
-	
-	/* from GlobalExceptionHandler */
-	@RequestMapping("/404")
-	public ResponseEntity<JsonResult> _404() {
-		return ResponseEntity
-				.status(HttpStatus.NOT_FOUND)
-				.body(JsonResult.fail("Unknown URL"));
-	}
 
-	@RequestMapping("/500")
-	public ResponseEntity<JsonResult> _500(@RequestAttribute String errors) {
-		return ResponseEntity
-				.internalServerError()
-				.body(JsonResult.fail(errors));
-	}
-
-	/* from Whitelabel(Embeded Tomcat) */
-	@GetMapping
-	public ResponseEntity<JsonResult> handlerError(HttpServletRequest request) {
-		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
-        Object message = request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
-		
+    /* from GlobalExceptionHandler */
+    @RequestMapping("/404")
+    public ResponseEntity<JsonResult<?>> _404() {
         return ResponseEntity
-        		.status(status == null ? HttpStatus.INTERNAL_SERVER_ERROR.value() : Integer.parseInt(status.toString()))
-        		.body(JsonResult.fail(message == null ? "Unexpected Error" : message.toString()));
-	}
+                .status(HttpStatus.NOT_FOUND)
+                .body(JsonResult.fail("Unknown URL"));
+    }
+
+    @RequestMapping("/500")
+    public ResponseEntity<JsonResult<?>> _500(@RequestAttribute String errors) {
+        return ResponseEntity
+                .internalServerError()
+                .body(JsonResult.fail(errors));
+    }
+
+    /* from Whitelabel(Embeded Tomcat) */
+    @GetMapping
+    public ResponseEntity<JsonResult<?>> handlerError(HttpServletRequest request) {
+        Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        Object message = request.getAttribute(RequestDispatcher.ERROR_MESSAGE);
+
+        return ResponseEntity
+                .status(status == null ? HttpStatus.INTERNAL_SERVER_ERROR.value() : Integer.parseInt(status.toString()))
+                .body(JsonResult.fail(message == null ? "Unexpected Error" : message.toString()));
+    }
 }
