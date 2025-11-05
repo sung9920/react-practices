@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bit2025.ajax.dto.JsonResult;
@@ -33,7 +32,7 @@ public class WhitelabelErrorController implements ErrorController {
                 .body(JsonResult.fail(errors));
     }
 
-    /* from Whitelabel(Embeded Tomcat) */
+    /* from Whitelabel(Embedded Tomcat) */
     @GetMapping
     public ResponseEntity<JsonResult<?>> handlerError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);

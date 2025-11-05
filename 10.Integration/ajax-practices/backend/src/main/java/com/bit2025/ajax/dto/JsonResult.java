@@ -11,23 +11,12 @@ public class JsonResult<T> {
     private T data;
     private String message;
 
-    public static JsonResult<Object> fail(String message) {
-        return new JsonResult<>(message);
+    public static <T> JsonResult<T> fail(String message) {
+        return new JsonResult<>("fail", null, message);
     }
 
     public static <T> JsonResult<T> success(T data) {
-        return new JsonResult<>(data);
+        return new JsonResult<>("success", data, "요청성공");
     }
 
-    private JsonResult(String message) {
-        result = "fail";
-        data = null;
-        this.message = message;
-    }
-
-    private JsonResult(T data) {
-        result = "success";
-        this.data = data;
-        message = null;
-    }
 }
