@@ -13,7 +13,7 @@ spring:
     static-path-pattern: /assets/** # /assets일 경우에만 정적 리소스 찾기
   web:
     resources:
-      static-locations: [classpath:/assets/, file://ajax-practices/uploads/]
+      static-locations: [classpath:/assets/, file:/ajax-practices-uploads/]
   servlet:
     multipart:
       enabled: true
