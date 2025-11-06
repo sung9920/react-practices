@@ -4,14 +4,14 @@ module.exports = {
     mode: "development",
     entry: path.resolve('src/index.js'),
     output: {
-        path: path.resolve('public'),
+        path: path.resolve('../backend/src/main/resources'),
         filename: 'assets/js/main.js',
         assetModuleFilename: 'assets/images/[hash][ext]'
     },
     module: {
         rules:[{
             test: /\.js/i,
-            exclude: /node_modules/, 
+            exclude: /node_modules/,
             loader: 'babel-loader',
             options: {
                 configFile: path.resolve('config/babel.config.json')
@@ -38,6 +38,11 @@ module.exports = {
             watch: false
         },
         compress: true,
-        hot: false
+        hot: false,
+        historyApiFallback: true,
+        proxy:[{
+            context: ['/api'],
+            target: 'http://localhost:8080'
+        }]
     }        
 }
