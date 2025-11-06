@@ -1,15 +1,22 @@
-import React from "react";
-import TabItem from "./TabItem";
-import "./assets/scss/Tabs.scss";
+import React from 'react';
+import styled from 'styled-components';
+import TabItem from './TabItem';
 
-function Tabs({selectTab, data }) {
-  return (
-    <ul>
-      {data.map((item) => (
-        <TabItem key={item.no} no={item.no} name={item.name} active={item.active} selectTab={selectTab} />
-      ))}
-    </ul>
-  );
+const StyledUl = styled.ul`
+    height:24px;
+`;
+
+function Tabs({selectTab, tabs}) {
+    return (
+        <StyledUl>
+            {tabs.map(tab => <TabItem
+                key={tab.no}
+                no={tab.no}
+                name={tab.name}
+                active={tab.active}
+                selectTab={selectTab} />)}
+        </StyledUl>
+    );
 }
 
 export default Tabs;

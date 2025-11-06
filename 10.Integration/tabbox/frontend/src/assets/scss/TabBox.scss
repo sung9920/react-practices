@@ -1,12 +1,6 @@
 @charset "utf-8";
 
-body {
-  :global(#root) {
-    :global(#App) {
-      .Tab_Box {
-        width: fit-content;
-        margin: 100px auto;
-      }
-    }
-  }
+.Tab_Box {
+    width: fit-content;
+    margin: 100px auto 
 }
