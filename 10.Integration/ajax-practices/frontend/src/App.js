@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Modal from "react-modal";
 import ReactModal from "react-modal";
 import styled from "styled-components";
@@ -14,17 +14,22 @@ import * as styles from "./assets/scss/Modal.scss";
 const ItemList = styled.ul``;
 const Item = styled.li``;
 
-ReactModal.setAppElement("body");
+ReactModal.setAppElement("#root");
 
 export default function App() {
+  const refCreateForm1 = useRef(null);
+  const refCreateForm2 = useRef(null);
   const [items, setItems] = useState(null);
   const [modalData, setModalData] = useState({
+    itemId: 0,
     itemType: "",
     itemName: "",
     open: false,
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    fetchItems();
+  }, []);
 
   const fetchItems = async () => {
     try {
@@ -84,29 +89,59 @@ export default function App() {
     }
   };
 
+  const updateItem = async (id, item) => {
+    try {
+      const res = await axios.put(`/item/${id}`, new URLSearchParams(item), {
+        "Content-Type": "application/x-www-form-urlencoded",
+      });
+      if (res.data.result === "fail") {
+        throw new Error(res.data.message);
+      }
+
+      const updateItem = res.data.data;
+      const index = items.findIndex((e) => e.id === updateItem.id);
+
+      setItems([
+        ...items.slice(0, index),
+        updateItem,
+        ...items.slice(index + 1),
+      ]);
+      setModalData(
+        update(modalData, {
+          open: {
+            $set: false,
+          },
+        })
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div id={"App"}>
       <h1>AJAX: Restful API</h1>
       <div>
         <form
+          ref={refCreateForm1}
           onSubmit={(event) => {
             event.preventDefault();
 
             try {
               /*
-              const item = Array.from(event.target, (el) => {
-                  if(el.name !== '' && el.value === '') {
-                      throw new Error(`validation ${el.name} is empty`);
-                  }
+                        const item = Array.from(event.target, (el) => {
+                            if(el.name !== '' && el.value === '') {
+                                throw new Error(`validation ${el.name} is empty`);
+                            }
 
-                  return {name: el.name, value: el.value};
-              })
-              .filter((e) => e.name !== '')
-              .reduce((res, e) => { 
-                  res[e.name] = e.value;
-                  return res;
-              }, {});
-              */
+                            return {name: el.name, value: el.value};
+                        })
+                        .filter((e) => e.name !== '')
+                        .reduce((res, e) => { 
+                            res[e.name] = e.value;
+                            return res;
+                        }, {});
+                        */
 
               Array.from(event.target, (el) => {
                 if (el.name !== "" && el.value === "") {
@@ -118,7 +153,7 @@ export default function App() {
               const item = serialize(event.target, { hash: true });
               addItem(item);
             } catch (err) {
-              alert(err.message);
+              alert(err);
             }
           }}
         >
@@ -136,6 +171,7 @@ export default function App() {
         </form>
 
         <form
+          ref={refCreateForm2}
           onSubmit={(event) => {
             event.preventDefault();
 
@@ -152,7 +188,7 @@ export default function App() {
 
               addItemWithImage(item);
             } catch (err) {
-              alert(err.message);
+              alert(err);
             }
           }}
         >
@@ -185,6 +221,7 @@ export default function App() {
                   setModalData(
                     update(modalData, {
                       open: { $set: true },
+                      itemId: { $set: jsonResult.data.id },
                       itemType: { $set: jsonResult.data.type },
                       itemName: { $set: jsonResult.data.name },
                     })
@@ -224,7 +261,14 @@ export default function App() {
         style={{ content: { width: 350 } }}
       >
         <h3>Update Item</h3>
-        <form>
+        <form
+          onSubmit={(event) => {
+            event.preventDefault();
+
+            const item = serialize(event.target, { hash: true });
+            updateItem(modalData.itemId, item);
+          }}
+        >
           <label>Type</label>{" "}
           <select
             name={"type"}

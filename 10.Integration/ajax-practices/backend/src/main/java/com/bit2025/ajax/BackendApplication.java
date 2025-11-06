@@ -17,9 +17,9 @@ public class BackendApplication {
 		return new LinkedList<>(List.of(
 			new Item(10L, "BOOK", "history of western civilization"),
 			new Item(8L, "FOOD", "apple pie"),
-			new Item(5L, "CLOTHE", "hood shirt"),
+			new Item(6L, "CLOTHE", "hood shirt"),
 			new Item(1L, "BOOK", "spring in action")
-		));
+		));		
 	}
 
 	public static void main(String[] args) {

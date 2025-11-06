@@ -29,68 +29,68 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RequestMapping("/item")
 public class ItemController {
-    private final List<Item> items;
+	private final List<Item> items;
+	
+	public ItemController(@Qualifier("items") List<Item> items) {
+		this.items = items;
+	}
+	
+	@PostMapping(consumes={MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<JsonResult<Item>> create(@RequestBody Item item) {
+		log.info("Request[POST /item, Content-Type: application/json][{}]", item);
+		
+		long maxId = items.isEmpty() ? 0L : items.getFirst().getId();
+		item.setId(maxId + 1);
+		
+		items.addFirst(item);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(item));
+	}
 
-    public ItemController(@Qualifier("items") List<Item> items) {
-        this.items = items;
-    }
+	@PostMapping(consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
+	public ResponseEntity<JsonResult<Item>> create(Item item, MultipartFile file) {
+		log.info("Request[POST /item, Content-Type: multipart/form-data][{}, {}]", item, file.getOriginalFilename());
+		
+		try {
+			final String filename = UUID
+					.randomUUID()
+					.toString()
+					.concat(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+					
+			Files.write(Files
+					.createDirectories(Paths.get("/ajax-practices-uploads/images"))
+					.resolve(filename), file.getBytes());
+			
+			long maxId = items.isEmpty() ? 0L : items.getFirst().getId();
+			item.setId(maxId + 1);
+			item.setImage("/assets/images/" + filename);
 
-    @PostMapping(consumes={MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<JsonResult<Item>> create(@RequestBody Item item) {
-        log.info("Request[POST /item, Content-Type: application/json][{}]", item);
+			items.addFirst(item);
+			
+			return ResponseEntity
+					.status(HttpStatus.OK)
+					.body(JsonResult.success(item));
 
-        Long maxId = items.isEmpty() ? 0L : items.getFirst().getId();
-        item.setId(maxId + 1);
+		} catch(IOException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 
-        items.addFirst(item);
+	@GetMapping
+	public ResponseEntity<JsonResult<List<Item>>> read() {
+		log.info("Request[GET /item]");
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(items));
+	}
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(JsonResult.success(item));
-    }
-
-    @PostMapping(consumes={MediaType.MULTIPART_FORM_DATA_VALUE})
-    public ResponseEntity<JsonResult<Item>> create(Item item, MultipartFile file) {
-        log.info("Request[POST /item, Content-Type: multipart/form-data][{}, {}]", item, file.getOriginalFilename());
-
-        try {
-            final String filename = UUID
-                    .randomUUID()
-                    .toString()
-                    .concat(file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
-
-            Files.write(Files
-                    .createDirectories(Paths.get("/ajax-practices-uploads/images"))
-                    .resolve(filename), file.getBytes());
-
-            Long maxId = items.isEmpty() ? 0L : items.getFirst().getId();
-            item.setId(maxId + 1);
-            item.setImage("/assets/images/" + filename);
-
-            items.addFirst(item);
-
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(JsonResult.success(item));
-
-        } catch(IOException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    @GetMapping
-    public ResponseEntity<JsonResult<List<Item>>> read() {
-        log.info("Request[GET /item]");
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(JsonResult.success(items));
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<JsonResult<Item>> read(@PathVariable Long id) {
-        log.info("Request[GET /item/{}]", id);
-
+	@GetMapping("/{id}")
+	public ResponseEntity<JsonResult<Item>> read(@PathVariable Long id) {
+		log.info("Request[GET /item/{}]", id);
+		
 //		Item item = null;
 //		for(int i = 0; i < items.size(); i++) {
 //			if(items.get(i).getId() == id) {
@@ -98,39 +98,46 @@ public class ItemController {
 //				break;
 //			}
 //		}
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(JsonResult.success(items
-                        .stream()
-                        .filter(item -> item.getId().equals(id))
-                        .findAny()
-                        .orElse(null)));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<JsonResult<Item>> update(@PathVariable Long id, Item item) {
-        log.info("Request[put /item/{}][{}]", id, item);
-
-        int index = items.indexOf(new Item(id));
-        Item updateItem = index == -1 ? null : items.get(index);
-        if(updateItem != null) {
-            updateItem.setType(item.getType());
-            updateItem.setName(item.getName());
-        }
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(JsonResult.success(updateItem));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<JsonResult<Boolean>> delete(@PathVariable Long id) {
-        log.info("Request[DELETE /item/{}]", id);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(JsonResult.success(items.removeIf(item -> item.getId().equals(id))));
-    }
-
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(items
+						.stream()
+						.filter(item -> item.getId().equals(id))
+						.findAny()
+						.orElse(null)));
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<JsonResult<Item>> update(@PathVariable Long id, Item item) {
+		log.info("Request[put /item/{}][{}]", id, item);
+		
+		int index = items.indexOf(new Item(id));
+		Item updateItem = index == -1 ? null : items.get(index);
+		if(updateItem != null) {
+			updateItem.setType(item.getType());
+			updateItem.setName(item.getName());
+		}
+		
+//		Optional
+//			.ofNullable(items.indexOf(new Item(id)) == -1 ? null : items.get(index))
+//			.ifPresent(t -> {
+//				t.setType(item.getType());
+//				t.setName(item.getName());
+//			});
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(updateItem));
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<JsonResult<Boolean>> delete(@PathVariable Long id) {
+		log.info("Request[DELETE /item/{}]", id);
+		
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(JsonResult.success(items.removeIf(item -> item.getId().equals(id))));
+	}
+	
 }
