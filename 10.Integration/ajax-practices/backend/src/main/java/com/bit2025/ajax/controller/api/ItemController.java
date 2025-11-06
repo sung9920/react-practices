@@ -125,7 +125,8 @@ public class ItemController {
 //				t.setType(item.getType());
 //				t.setName(item.getName());
 //			});
-		
+
+
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(updateItem));

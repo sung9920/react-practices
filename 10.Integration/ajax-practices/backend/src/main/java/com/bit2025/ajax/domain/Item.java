@@ -9,26 +9,28 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 @RequiredArgsConstructor
-@EqualsAndHashCode(exclude = {"type", "name", "image"})
+@EqualsAndHashCode(of = "id")
 public class Item {
-	@NonNull
-	private Long id;
-	
-	@NonNull
-	private String type;
 
-	@NonNull
-	private String name;
-	
-	private String image;
-	
-	public Item(Long id) {
-		this.id = id;
-	}
+    @NonNull
+    private Long id;
+
+    @NonNull
+    private String type;
+
+    @NonNull
+    private String name;
+
+    private String image;
+
+    public Item(Long id) {
+        this.id = id;
+    }
 }
