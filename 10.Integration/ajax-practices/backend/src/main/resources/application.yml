@@ -27,7 +27,10 @@ logging:
    pattern:
       console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
    level:
-      root: info
+      com:
+         bit2025:
+            ajax:
+               exception: ERROR
 
 ---
 # production configuration

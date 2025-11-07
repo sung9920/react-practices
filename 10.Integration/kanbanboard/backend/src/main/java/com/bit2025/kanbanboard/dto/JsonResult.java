@@ -1,38 +1,30 @@
-package com.example.demo.dto;
+package com.bit2025.kanbanboard.dto;
 
-public class JsonResult {
-	private String result;  /* "success" or "fail"  */
-	private Object data;    /* if success, data set */
-	private String message; /* if fail, message set */
-	
-	private JsonResult() {
+import lombok.Getter;
+
+@Getter
+public class JsonResult<T> {
+	private String result; 	// "success" or "fail"
+	private T data;			// if success, set
+	private String message;	// if fail, set
+
+	public static JsonResult<Object> fail(String message) {
+		return new JsonResult<>(message);
 	}
 
-	private JsonResult(Object data) {
-		result = "success";
-		this.data = data; 
+	public static <T> JsonResult<T> success(T data) {
+		return new JsonResult<>(data);
 	}
 
 	private JsonResult(String message) {
 		result = "fail";
+		data = null;
 		this.message = message; 
 	}
-
-	public static JsonResult success(Object data) {
-		return new JsonResult(data);
-	}
-
-	public static JsonResult fail(String message) {
-		return new JsonResult(message);
-	}
 	
-	public String getResult() {
-		return result;
-	}
-	public Object getData() {
-		return data;
-	}
-	public String getMessage() {
-		return message;
+	private JsonResult(T data) {
+		result = "success";
+		this.data = data;
+		message = null;
 	}
 }

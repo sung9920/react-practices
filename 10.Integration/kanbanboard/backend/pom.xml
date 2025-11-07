@@ -8,11 +8,10 @@
         <version>3.5.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.bit2025.kanbanboard</groupId>
-    <artifactId>kanbanboard</artifactId>
+    <groupId>com.bit2025</groupId>
+    <artifactId>kanbanboard-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>backend</name>
-    <description>backend</description>
+    <name>kanbanboard</name>
     <url/>
     <licenses>
         <license/>
@@ -74,7 +73,7 @@
     </dependencies>
 
     <build>
-        <finalName>kanbanboard</finalName>
+        <finalName>kanbanboard-backend</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

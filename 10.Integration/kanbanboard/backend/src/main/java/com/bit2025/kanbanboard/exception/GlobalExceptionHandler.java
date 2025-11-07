@@ -1,31 +1,44 @@
-package com.example.demo.exception;
+package com.bit2025.kanbanboard.exception;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.NoHandlerFoundException;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-import com.example.demo.dto.JsonResult;
-
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public String handlerNoHandlerFoundException(HttpServletRequest request) {
+		return
+			request.getHeader("accept").matches(".*application/json.*") ? 
+			"forward:/error/404" :
+			"index";
+	}
+	
+	@ExceptionHandler(NoResourceFoundException.class)
+	public void handlerNoResourceFoundException(HttpServletResponse response) throws Exception {
+		response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+		response.setContentType("text/pain");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().print("No Resource Found");
+	}
 	
 	@ExceptionHandler(Exception.class)
-	@ResponseBody
-	public ResponseEntity<JsonResult> ExceptionHandler(Exception e) throws Exception {
-		//1. 로깅
+	public String handler(HttpServletRequest request, HttpServletResponse response, Exception e) throws Exception {
+		// logging
 		StringWriter errors = new StringWriter();
 		e.printStackTrace(new PrintWriter(errors));
 		log.error(errors.toString());
-		
-		//2. JSON 응답
-		return ResponseEntity.status(HttpStatus.OK).body(JsonResult.fail(errors.toString()));
+
+		request.setAttribute("errors", errors);
+		return "forward:/error/500";
 	}
 }
