@@ -4,7 +4,9 @@ body {
   :global(#root) {
     .Task_List {
       ul {
-        list-style-type: none;
+        display: flex;
+        flex-direction: column-reverse;
+        list-style: none;
       }
       .Input_Add_Task {
         border: 1px dashed #bbb;

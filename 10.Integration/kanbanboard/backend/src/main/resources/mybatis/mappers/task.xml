@@ -3,7 +3,7 @@
 <mapper namespace="task">
 	<select id="findAllByCardNo" resultType="taskvo" parameterType="long">
 		<![CDATA[	
-			  select no, name, done
+			  select no, name, done, card_no as cardNo
 		      	from task
 		       where card_no=#{cardNo}	
 		  	order by no desc
@@ -30,5 +30,12 @@
 			 where no=#{no}	
 	  	]]>	
 	</update>	
-		
+
+    <delete id="delete" parameterType="long">
+        <![CDATA[
+			delete
+			  from task
+			 where no=#{no}
+	  	]]>
+    </delete>
 </mapper>

@@ -7,13 +7,7 @@ import com.bit2025.kanbanboard.vo.CardVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.bit2025.kanbanboard.dto.JsonResult;
 import com.bit2025.kanbanboard.repository.CardRepository;
@@ -37,8 +31,8 @@ public class ApiController {
 				.body(JsonResult.success(cardRepository.findAll()));
 	}
 	
-	@GetMapping("/task")
-	public ResponseEntity<JsonResult<List<TaskVo>>> readTask(Long cardNo) {
+	@GetMapping("/task/{cardNo}")
+	public ResponseEntity<JsonResult<List<TaskVo>>> readTask(@PathVariable Long cardNo) {
 		return ResponseEntity
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(taskRepository.findAllByCardNo(cardNo)));
@@ -61,4 +55,12 @@ public class ApiController {
 				.status(HttpStatus.OK)
 				.body(JsonResult.success(Map.of("no", no, "done", done)));
 	}
+
+    @DeleteMapping("/task/{no}")
+    public ResponseEntity<JsonResult<Boolean>> deleteTask(@PathVariable Long no) {
+        taskRepository.delete(no);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(JsonResult.success(true));
+    }
 }

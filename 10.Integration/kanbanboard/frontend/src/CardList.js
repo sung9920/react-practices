@@ -9,9 +9,9 @@ function CardList({ title, cards }) {
       {cards.map((card) => (
         <Card
           key={card.no}
+          no={card.no}
           title={card.title}
           description={card.description}
-          tasks={card.tasks}
         />
       ))}
     </div>
