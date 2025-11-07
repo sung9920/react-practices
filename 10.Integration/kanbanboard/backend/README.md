@@ -1,7 +1,7 @@
 # APIs
 
 
-### GET /kanbanboard/card
+### GET /api/card
 #### Parameters
 none
 #### Response
@@ -33,7 +33,7 @@ example value
 ```
 ---
 
-### GET /kanbanboard/task
+### GET /api/task
 #### Parameters
 cardNo : Long(query)
 #### Response
@@ -56,7 +56,7 @@ example value
     },
     {
       "no": 2,
-      "title": "...",
+      "name": "...",
       "done": "N",
       "cardNo": "10"
     }    
@@ -66,7 +66,7 @@ example value
 ---
 
 
-### POST /kanbaboard/task
+### POST /api/task
 #### Parameters
 none
 
@@ -77,7 +77,7 @@ example value
 ```json
 {
   "no": null,
-  "title": "...",
+  "name": "...",
   "done": "N",
   "cardNo": "10"
 } 
@@ -93,7 +93,7 @@ example value
 ```json
 {
   "no": 5,
-  "title": "...",
+  "name": "...",
   "done": "N",
   "cardNo": "10"
 } 
@@ -101,7 +101,7 @@ example value
 ---
 
 
-### PUT /kanbaboard/task/{no}
+### PUT /api/task/{no}
 #### Parameters
 no : Long(PATH)
 
@@ -128,7 +128,7 @@ example value
 
 
 
-### DELETE /kanbaboard/task/{no}
+### DELETE /api/task/{no}
 #### Parameters
 no : Long(PATH)
 

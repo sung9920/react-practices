@@ -34,7 +34,7 @@ spring:
 
   flyway:
     enabled: true
-    location: classpath:sql
+    locations: classpath:sql
 
 mybatis:
   config-location: classpath:mybatis/configuration.xml
