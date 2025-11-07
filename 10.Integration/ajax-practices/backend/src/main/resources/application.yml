@@ -1,76 +1,78 @@
 # spring configuration
 spring:
-  application:
-    name: tabbox-backend
-  profiles:
-    active: development
+   application:
+      name: ajax-practices-backend
+   profiles:
+      active: development
+
+
 
 ---
 # development configuration
 spring:
-  config:
-    activate:
-      on-profile: development
+   config:
+      activate:
+         on-profile: development
 
-  devtools:
-    restart:
-      enabled: true
-    livereload:
-      enabled: true
+   devtools:
+      restart:
+         enabled: true    
+      livereload:
+         enabled: true
 
 server:
-  port: 8080
+   port: 8080
 
 logging:
-  pattern:
-    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
-  level:
-    root: info
+   pattern:
+      console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   level:
+      root: info
 
 ---
 # production configuration
 spring:
-  config:
-    activate:
-      on-profile: production
+   config:
+      activate:
+         on-profile: production
 
 server:
-  port: 80
+   port: 80
 
 logging:
-  pattern:
-    file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
-  logback:
-    rollingpolicy:
-      file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
-      max-file-size: 10MB
-      max-history: 10
-  file:
-    name: logs/${spring.application.name}.log
-  level:
-    tabbox:
-      exception: ERROR
+   pattern:
+      file: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{5} - %msg%n"
+   logback:
+      rollingpolicy:
+         file-name-pattern: "logs/${spring.application.name}.%d{yyyy-MM-dd}.%i.log.zip"
+         max-file-size: 10MB
+         max-history: 10
+   file:
+      name: logs/${spring.application.name}.log
+   level:
+      ajax-practices:
+         exception: ERROR
 
 ---
 # common configuration
 spring:
-  mvc:
-    static-path-pattern: /assets/**
-  web:
-    resources:
-      static-locations: [classpath:assets/, file:/ajax-practices-uploads/]
+   mvc:
+      static-path-pattern: /assets/**
+   web:
+      resources:
+         static-locations: [classpath:assets/, file:/ajax-practices-uploads/]
 
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 10485760
-      max-request-size: 104857600
-      file-size-threshold: 5242880
+   servlet:
+      multipart:
+         enabled: true
+         max-file-size: 10485760
+         max-request-size: 104857600
+         file-size-threshold: 5242880
 
 server:
-  servlet:
-    context-path: /
-  error:
-    whitelabel:
-      enabled: false
-    path: /error
+   servlet:
+      context-path: /
+   error:
+      whitelabel:
+         enabled: false
+      path: /error

@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
+
 
 module.exports = {
     mode: "development",
@@ -31,8 +33,9 @@ module.exports = {
         }],
     },
     plugins: [
+        new CaseSensitivePathsPlugin(),
         new webpack.DefinePlugin({
-            'API_HOST': JSON.stringify(process.env.NODE_ENV === 'development' ? '' : 'http://192.168.0.177:8080')
+            'API_HOST': JSON.stringify(process.env.NODE_ENV === 'development' ? '' : 'http://192.168.0.176:8080')
         })
     ],     
     devServer: {

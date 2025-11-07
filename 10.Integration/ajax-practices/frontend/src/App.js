@@ -90,10 +90,12 @@ export default function App() {
   };
 
   const updateItem = async (id, item) => {
+    const formData = new FormData();
+    formData.append("name", item.name);
+    formData.append("type", item.type);
+    formData.append("file", item.file);
     try {
-      const res = await axios.put(`/item/${id}`, new URLSearchParams(item), {
-        "Content-Type": "application/x-www-form-urlencoded",
-      });
+      const res = await axios.put(`/item/${id}`, formData);
       if (res.data.result === "fail") {
         throw new Error(res.data.message);
       }
@@ -129,19 +131,19 @@ export default function App() {
 
             try {
               /*
-                        const item = Array.from(event.target, (el) => {
-                            if(el.name !== '' && el.value === '') {
-                                throw new Error(`validation ${el.name} is empty`);
-                            }
+                const item = Array.from(event.target, (el) => {
+                    if(el.name !== '' && el.value === '') {
+                        throw new Error(`validation ${el.name} is empty`);
+                    }
 
-                            return {name: el.name, value: el.value};
-                        })
-                        .filter((e) => e.name !== '')
-                        .reduce((res, e) => { 
-                            res[e.name] = e.value;
-                            return res;
-                        }, {});
-                        */
+                    return {name: el.name, value: el.value};
+                })
+                .filter((e) => e.name !== '')
+                .reduce((res, e) => { 
+                    res[e.name] = e.value;
+                    return res;
+                }, {});
+              */
 
               Array.from(event.target, (el) => {
                 if (el.name !== "" && el.value === "") {
@@ -291,6 +293,9 @@ export default function App() {
             <option>BOOK</option>
             <option>FOOD</option>
           </select>
+          <br />
+          <br />
+          <input type={"file"} name={"file"} />
           <br />
           <br />
           <label>Name</label>{" "}
