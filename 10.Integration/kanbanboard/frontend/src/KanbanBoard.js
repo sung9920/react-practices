@@ -35,12 +35,12 @@ function KanbanBoard() {
       <CardList
         key={"Doing"}
         title={"Doing"}
-        cards={data.filter((card) => card.status === "Doing")}
+        cards={cards.filter((card) => card.status === "Doing")}
       />
       <CardList
         key={"Done"}
         title={"Done"}
-        cards={data.filter((card) => card.status === "Done")}
+        cards={cards.filter((card) => card.status === "Done")}
       />
     </div>
   );

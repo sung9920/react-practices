@@ -3,7 +3,6 @@ import { _Card, Card_Title, Card_Title_Open } from "./assets/scss/Card.scss";
 import TaskList from "./TaskList";
 import axios from "axios";
 
-
 function Card({ no, title, description }) {
   const [isShowDetails, setIsShowDetails] = useState(false);
   const [tasks, setTasks] = useState([]);
@@ -15,17 +14,20 @@ function Card({ no, title, description }) {
         throw new Error(res.data.message);
       }
       setTasks(res.data.data);
-      setIsShowDetails(!isShowDetails)
       console.log(res.data.data);
     } catch (err) {
       console.error(err);
     }
-  }
+  };
+
   return (
     <div className={_Card}>
       <div
         className={[Card_Title, isShowDetails && Card_Title_Open].join(" ")}
-        onClick={fetchTasks}
+        onClick={async () => {
+          !isShowDetails && (await fetchTasks());
+          setIsShowDetails(!isShowDetails);
+        }}
       >
         {title}
       </div>
